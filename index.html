@@ -3,61 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Fees</title>
-    <script>
-        let selectedFee = null;
-        const students = [
-            'Amir', 'Annabel', 'Avi', 'Ariyan', 'Ayla Haq',
-            'Ethan', 'Ephrafth', 'Eesa', 'Nayal', 'Harea',
-            'Janina', 'Hathim', 'Aydin', 'Maryam Sulaiman', 'Monisha',
-            'Owais', 'Ruby', 'Shamyle', 'Shrish', 'Zayaan',
-            'Shayaan', 'Rayaan', 'Ved', 'Mridinika', 'Aliya',
-            'Oscar', 'Shahzain', 'Shafi', 'Abdul-Qabid', 'Sulaiman',
-            'David', 'Daniel', 'Vedanth', 'Vidhur', 'Ridhaan',
-            'Shaira', 'Safa Azad', 'Ishaan', 'Krishnav', 'Erin',
-            'Ryan', 'Zohra', 'Yihan', 'Nyah', 'Khadijah Udeen',
-            'Luciano', 'Rhys', 'Haniya', 'Kayhaan', 'Zohan',
-            'Yahavi', 'Abdullah', 'Azaan', 'Muaaz', 'Stephanie Castro',
-            'Samar', 'Manisha', 'Aahib', 'Sarene', 'Reyhane',
-            'Zainab fatima', 'Ayaan'
-        ];
-
-        function showFeeSelectionModal() {
-            // Code to show fee selection modal
-            const modalHtml = `
-                <div id='fee-selection-modal'>
-                    <h2>Select Fee</h2>
-                    <button onclick="selectFee(75)">£75</button>
-                    <button onclick="selectFee(150)">£150</button>
-                </div>
-            `;
-            document.body.innerHTML += modalHtml;
-        }
-
-        function selectFee(fee) {
-            selectedFee = fee;
-            document.getElementById('fee-selection-modal').remove();
-            displayStudentCards();
-        }
-
-        function displayStudentCards() {
-            const studentContainer = document.getElementById('student-container');
-            students.forEach(student => {
-                const card = document.createElement('div');
-                card.innerHTML = `<h3>${student}</h3><p>Fee: £${selectedFee}</p>`;
-                studentContainer.appendChild(card);
-            });
-        }
-
-        window.onload = function() {
-            showFeeSelectionModal();
-        };
-    </script>
+    <title>Student Fee Management</title>
 </head>
 <body>
-    <div id="student-container"></div>
+    <h1>Student Fee Management</h1>
+
+    <button id="editFeeBtn">Edit Fee</button>
+    <div id="feeStatus">Current Fee: £75</div>
+    <ul id="studentList">
+        <li>Student 1</li>
+        <li>Student 2</li>
+        <li>Student 3</li>
+        <li>Student 4</li>
+        <li>Student 5</li>
+        <li>Student 6</li>
+        <li>Student 7</li>
+        <li>Student 8</li>
+        <li>Student 9</li>
+        <li>Student 10</li>
+        <li>Student 11</li>
+        <li>Student 12</li>
+        <li>Student 13</li>
+        <li>Student 14</li>
+        <li>Student 15</li>
+        <li>Student 16</li>
+        <li>Student 17</li>
+        <li>Student 18</li>
+        <li>Student 19</li>
+        <li>Student 20</li>
+        <li>Student 21</li>
+        <li>Student 22</li>
+        <li>Student 23</li>
+        <li>Student 24</li>
+        <li>Student 25</li>
+        <li>Student 26</li>
+        <li>Student 27</li>
+        <li>Student 28</li>
+        <li>Student 29</li>
+        <li>Student 30</li>
+        <li>Student 31</li>
+        <li>Student 32</li>
+        <li>Student 33</li>
+        <li>Student 34</li>
+        <li>Student 35</li>
+        <li>Student 36</li>
+        <li>Student 37</li>
+        <li>Student 38</li>
+        <li>Student 39</li>
+        <li>Student 40</li>
+        <li>Student 41</li>
+        <li>Student 42</li>
+        <li>Student 43</li>
+        <li>Student 44</li>
+        <li>Student 45</li>
+        <li>Student 46</li>
+        <li>Student 47</li>
+        <li>Student 48</li>
+        <li>Student 49</li>
+        <li>Student 50</li>
+        <li>Student 51</li>
+        <li>Student 52</li>
+        <li>Student 53</li>
+        <li>Student 54</li>
+        <li>Student 55</li>
+        <li>Student 56</li>
+        <li>Student 57</li>
+        <li>Student 58</li>
+        <li>Student 59</li>
+        <li>Student 60</li>
+        <li>Student 61</li>
+        <li>Student 62</li>
+        <li>Student 63</li>
+        <li>Student 64</li>
+        <li>Student 65</li>
+        <li>Student 66</li>
+        <li>Student 67</li>
+        <li>Student 68</li>
+    </ul>
+
     <script>
-        // Existing functionality (check-in, fee payment tracking, reset) code should go here
+        let currentFee = 75;
+        const feeStatus = document.getElementById('feeStatus');
+        const editFeeBtn = document.getElementById('editFeeBtn');
+        const studentList = document.getElementById('studentList');
+
+        editFeeBtn.onclick = function() {
+            // Toggle fee between £75 and £150
+            currentFee = currentFee === 75 ? 150 : 75;
+            feeStatus.innerText = `Current Fee: £${currentFee}`;
+
+            // Logic to preserve student data can be implemented here
+            alert(`Fee updated to £${currentFee}.`);
+        };
     </script>
 </body>
 </html>
