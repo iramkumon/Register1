@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Class Check-In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .student-card { transition: transform 0.1s; }
+        .student-card:active { transform: scale(0.98); }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans pb-20">
+
+    <!-- Header -->
+    <div class="bg-indigo-600 p-6 rounded-b-3xl shadow-lg mb-6">
+        <h1 class="text-white text-2xl font-bold">My Class</h1>
+        <p class="text-indigo-100 text-sm" id="currentDate"></p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="px-4 grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-white p-4 rounded-2xl shadow-sm border-l-4 border-green-500">
+            <p class="text-gray-500 text-xs uppercase font-bold tracking-wider">Present</p>
+            <p id="presentCount" class="text-2xl font-bold text-gray-800">0</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border-l-4 border-amber-500">
+            <p class="text-gray-500 text-xs uppercase font-bold tracking-wider">Fees Paid</p>
+            <p id="feeCount" class="text-2xl font-bold text-gray-800">£0</p>
+        </div>
+    </div>
+
+    <!-- Student List -->
+    <div class="px-4 space-y-4" id="appContainer">
+        <!-- Student Card 1 -->
+        <div class="student-card bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+            <div onclick="toggleCheck(1)" class="flex-1">
+                <h3 class="font-bold text-gray-800 text-lg">Alex Johnson</h3>
+                <p id="time-1" class="text-gray-400 text-sm">Not checked in</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleFee(1)" id="fee-1" class="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-300">
+                    <i class="fa-solid fa-sterling-sign"></i>
+                </button>
+                <div id="indicator-1" class="w-4 h-4 rounded-full bg-gray-200"></div>
+            </div>
+        </div>
+
+        <!-- Student Card 2 -->
+        <div class="student-card bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+            <div onclick="toggleCheck(2)" class="flex-1">
+                <h3 class="font-bold text-gray-800 text-lg">Sarah Williams</h3>
+                <p id="time-2" class="text-gray-400 text-sm">Not checked in</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleFee(2)" id="fee-2" class="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-300">
+                    <i class="fa-solid fa-sterling-sign"></i>
+                </button>
+                <div id="indicator-2" class="w-4 h-4 rounded-full bg-gray-200"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Action Bar -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 flex justify-around items-center">
+        <button class="text-indigo-600 flex flex-col items-center">
+            <i class="fa-solid fa-users text-xl"></i>
+            <span class="text-xs mt-1 font-medium">Class</span>
+        </button>
+        <button onclick="alert('Feature coming soon: Add New Student')" class="bg-indigo-600 w-12 h-12 rounded-full shadow-lg -mt-10 flex items-center justify-center text-white">
+            <i class="fa-solid fa-plus text-xl"></i>
+        </button>
+        <button onclick="window.location.reload()" class="text-gray-400 flex flex-col items-center">
+            <i class="fa-solid fa-rotate text-xl"></i>
+            <span class="text-xs mt-1 font-medium">Reset</span>
+        </button>
+    </div>
+
+    <script>
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+
+        let present = 0;
+        let fees = 0;
+
+        function toggleCheck(id) {
+            const timeField = document.getElementById(`time-${id}`);
+            const indicator = document.getElementById(`indicator-${id}`);
+            
+            if (indicator.classList.contains('bg-gray-200')) {
+                indicator.classList.replace('bg-gray-200', 'bg-green-500');
+                timeField.innerText = "In: " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                present++;
+            } else {
+                indicator.classList.replace('bg-green-500', 'bg-gray-200');
+                timeField.innerText = "Not checked in";
+                present--;
+            }
+            document.getElementById('presentCount').innerText = present;
+        }
+
+        function toggleFee(id) {
+            const feeBtn = document.getElementById(`fee-${id}`);
+            if (feeBtn.classList.contains('text-gray-300')) {
+                feeBtn.classList.replace('text-gray-300', 'text-green-600');
+                feeBtn.classList.replace('border-gray-200', 'border-green-600');
+                fees += 50;
+            } else {
+                feeBtn.classList.replace('text-green-600', 'text-gray-300');
+                feeBtn.classList.replace('border-green-600', 'border-gray-200');
+                fees -= 50;
+            }
+            document.getElementById('feeCount').innerText = "£" + fees;
+        }
+    </script>
+</body>
+</html>
