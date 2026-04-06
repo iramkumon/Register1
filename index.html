@@ -1,60 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Punch In/Punch Out Register System</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .container { width: 50%; margin: auto; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 8px; }
-        th { background-color: #f2f2f2; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Punch In/Punch Out Register</h1>
-        <button id="punchInBtn">Punch In</button>
-        <button id="punchOutBtn">Punch Out</button>
-        <h2>Log</h2>
-        <table id="logTable">
-            <tr>
-                <th>Action</th>
-                <th>Time</th>
-            </tr>
-        </table>
-    </div>
+    <h1>Student Attendance System</h1>
+    <label for="student-select">Choose a student:</label>
+    <select id="student-select">
+        <option value="Amir">Amir</option>
+        <option value="Annabel">Annabel</option>
+        <option value="Avi">Avi</option>
+        <option value="Ariyan">Ariyan</option>
+        <option value="Ayla Haq">Ayla Haq</option>
+        <option value="Ethan">Ethan</option>
+        <option value="Ephrafth">Ephrafth</option>
+        <option value="Eesa">Eesa</option>
+        <option value="Nayal">Nayal</option>
+        <option value="Harea">Harea</option>
+        <option value="Janina">Janina</option>
+        <option value="Hathim">Hathim</option>
+        <option value="Aydin">Aydin</option>
+        <option value="Maryam Sulaiman">Maryam Sulaiman</option>
+        <option value="Monisha">Monisha</option>
+        <option value="Owais">Owais</option>
+        <option value="Ruby">Ruby</option>
+        <option value="Shamyle">Shamyle</option>
+        <option value="Shrish">Shrish</option>
+        <option value="Zayaan">Zayaan</option>
+        <option value="Shayaan">Shayaan</option>
+        <option value="Rayaan">Rayaan</option>
+        <option value="Ved">Ved</option>
+        <option value="Mridinika">Mridinika</option>
+        <option value="Aliya">Aliya</option>
+        <option value="Oscar">Oscar</option>
+        <option value="Shahzain">Shahzain</option>
+        <option value="Shafi">Shafi</option>
+        <option value="Abdul-Qabid">Abdul-Qabid</option>
+        <option value="Sulaiman">Sulaiman</option>
+        <option value="David">David</option>
+        <option value="Daniel">Daniel</option>
+        <option value="Vedanth">Vedanth</option>
+        <option value="Vidhur">Vidhur</option>
+        <option value="Ridhaan">Ridhaan</option>
+        <option value="Shaira">Shaira</option>
+        <option value="Safa Azad">Safa Azad</option>
+        <option value="Ishaan">Ishaan</option>
+        <option value="Krishnav">Krishnav</option>
+        <option value="Erin">Erin</option>
+        <option value="Ryan">Ryan</option>
+        <option value="Zohra">Zohra</option>
+        <option value="Yihan">Yihan</option>
+        <option value="Nyah">Nyah</option>
+        <option value="Khadijah Udeen">Khadijah Udeen</option>
+        <option value="Luciano">Luciano</option>
+        <option value="Rhys">Rhys</option>
+        <option value="Haniya">Haniya</option>
+        <option value="Kayhaan">Kayhaan</option>
+        <option value="Zohan">Zohan</option>
+        <option value="Yahavi">Yahavi</option>
+        <option value="Abdullah">Abdullah</option>
+        <option value="Azaan">Azaan</option>
+        <option value="Muaaz">Muaaz</option>
+        <option value="Stephanie Castro">Stephanie Castro</option>
+        <option value="Samar">Samar</option>
+        <option value="Manisha">Manisha</option>
+        <option value="Aahib">Aahib</option>
+        <option value="Sarene">Sarene</option>
+        <option value="Reyhane">Reyhane</option>
+        <option value="Zainab fatima">Zainab fatima</option>
+        <option value="Ayaan">Ayaan</option>
+    </select>
+    <button onclick="recordTimestamp('in')">Punch In</button>
+    <button onclick="recordTimestamp('out')">Punch Out</button>
 
     <script>
-        const logTable = document.getElementById('logTable');
-        let logData = JSON.parse(localStorage.getItem('logData')) || [];
-
-        function updateTable() {
-            logTable.innerHTML = '<tr><th>Action</th><th>Time</th></tr>';
-            logData.forEach(entry => {
-                const row = logTable.insertRow();
-                const actionCell = row.insertCell(0);
-                const timeCell = row.insertCell(1);
-                actionCell.innerHTML = entry.action;
-                timeCell.innerHTML = entry.time;
-            });
+        function recordTimestamp(type) {
+            const studentName = document.getElementById('student-select').value;
+            const dateTime = new Date().toISOString();
+            console.log(`Student: ${studentName}, Type: ${type}, Time: ${dateTime}`);
+            // Here you would also implement the logic to send the data to the server.
         }
-
-        document.getElementById('punchInBtn').onclick = function () {
-            const time = new Date().toLocaleString();
-            logData.push({ action: 'Punch In', time: time });
-            localStorage.setItem('logData', JSON.stringify(logData));
-            updateTable();
-        };
-
-        document.getElementById('punchOutBtn').onclick = function () {
-            const time = new Date().toLocaleString();
-            logData.push({ action: 'Punch Out', time: time });
-            localStorage.setItem('logData', JSON.stringify(logData));
-            updateTable();
-        };
-
-        // Initialize the table with existing data
-        updateTable();
     </script>
 </body>
 </html>
