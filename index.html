@@ -1,100 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Fee Management</title>
+    <title>Punch In/Punch Out Register System</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 50%; margin: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        .paid { color: green; }
+        .not-paid { color: red; }
+    </style>
 </head>
 <body>
-    <h1>Student Fee Management</h1>
-
-    <button id="editFeeBtn">Edit Fee</button>
-    <div id="feeStatus">Current Fee: £75</div>
-    <ul id="studentList">
-        <li>Student 1</li>
-        <li>Student 2</li>
-        <li>Student 3</li>
-        <li>Student 4</li>
-        <li>Student 5</li>
-        <li>Student 6</li>
-        <li>Student 7</li>
-        <li>Student 8</li>
-        <li>Student 9</li>
-        <li>Student 10</li>
-        <li>Student 11</li>
-        <li>Student 12</li>
-        <li>Student 13</li>
-        <li>Student 14</li>
-        <li>Student 15</li>
-        <li>Student 16</li>
-        <li>Student 17</li>
-        <li>Student 18</li>
-        <li>Student 19</li>
-        <li>Student 20</li>
-        <li>Student 21</li>
-        <li>Student 22</li>
-        <li>Student 23</li>
-        <li>Student 24</li>
-        <li>Student 25</li>
-        <li>Student 26</li>
-        <li>Student 27</li>
-        <li>Student 28</li>
-        <li>Student 29</li>
-        <li>Student 30</li>
-        <li>Student 31</li>
-        <li>Student 32</li>
-        <li>Student 33</li>
-        <li>Student 34</li>
-        <li>Student 35</li>
-        <li>Student 36</li>
-        <li>Student 37</li>
-        <li>Student 38</li>
-        <li>Student 39</li>
-        <li>Student 40</li>
-        <li>Student 41</li>
-        <li>Student 42</li>
-        <li>Student 43</li>
-        <li>Student 44</li>
-        <li>Student 45</li>
-        <li>Student 46</li>
-        <li>Student 47</li>
-        <li>Student 48</li>
-        <li>Student 49</li>
-        <li>Student 50</li>
-        <li>Student 51</li>
-        <li>Student 52</li>
-        <li>Student 53</li>
-        <li>Student 54</li>
-        <li>Student 55</li>
-        <li>Student 56</li>
-        <li>Student 57</li>
-        <li>Student 58</li>
-        <li>Student 59</li>
-        <li>Student 60</li>
-        <li>Student 61</li>
-        <li>Student 62</li>
-        <li>Student 63</li>
-        <li>Student 64</li>
-        <li>Student 65</li>
-        <li>Student 66</li>
-        <li>Student 67</li>
-        <li>Student 68</li>
-    </ul>
+    <div class="container">
+        <h1>Punch In/Punch Out Register</h1>
+        <label for="fee">Enter Fee:</label>
+        <input type="number" id="fee" placeholder="Fee"/>
+        <button id="punchInBtn">Punch In</button>
+        <button id="punchOutBtn">Punch Out</button>
+        <h2>Log</h2>
+        <table id="logTable">
+            <tr>
+                <th>Action</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </table>
+    </div>
 
     <script>
-        let currentFee = 75;
-        const feeStatus = document.getElementById('feeStatus');
-        const editFeeBtn = document.getElementById('editFeeBtn');
-        const studentList = document.getElementById('studentList');
+        const logTable = document.getElementById('logTable');
+        let logData = JSON.parse(localStorage.getItem('logData')) || [];
 
-        editFeeBtn.onclick = function() {
-            // Toggle fee between £75 and £150
-            currentFee = currentFee === 75 ? 150 : 75;
-            feeStatus.innerText = `Current Fee: £${currentFee}`;
+        function updateTable() {
+            logTable.innerHTML = '<tr><th>Action</th><th>Time</th><th>Status</th></tr>';
+            logData.forEach(entry => {
+                const row = logTable.insertRow();
+                const actionCell = row.insertCell(0);
+                const timeCell = row.insertCell(1);
+                const statusCell = row.insertCell(2);
+                actionCell.innerHTML = entry.action;
+                timeCell.innerHTML = entry.time;
+                statusCell.innerHTML = entry.paid ? '<span class="paid">Paid</span>' : '<span class="not-paid">Not Paid</span>';
+            });
+        }
 
-            // Logic to preserve student data can be implemented here
-            alert(`Fee updated to £${currentFee}.`);
+        document.getElementById('punchInBtn').onclick = function () {
+            const fee = document.getElementById('fee').value;
+            const time = new Date().toISOString();
+            logData.push({ action: 'Punch In', time: time, paid: fee > 0 });
+            localStorage.setItem('logData', JSON.stringify(logData));
+            updateTable();
         };
+
+        document.getElementById('punchOutBtn').onclick = function () {
+            const time = new Date().toISOString();
+            logData.push({ action: 'Punch Out', time: time, paid: false });
+            localStorage.setItem('logData', JSON.stringify(logData));
+            updateTable();
+        };
+
+        // Initialize the table with existing data
+        updateTable();
     </script>
 </body>
 </html>
