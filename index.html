@@ -8,15 +8,11 @@
         table { width: 100%; border-collapse: collapse; }
         th, td { border: 1px solid #ddd; padding: 8px; }
         th { background-color: #f2f2f2; }
-        .paid { color: green; }
-        .not-paid { color: red; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Punch In/Punch Out Register</h1>
-        <label for="fee">Enter Fee:</label>
-        <input type="number" id="fee" placeholder="Fee"/>
         <button id="punchInBtn">Punch In</button>
         <button id="punchOutBtn">Punch Out</button>
         <h2>Log</h2>
@@ -24,7 +20,6 @@
             <tr>
                 <th>Action</th>
                 <th>Time</th>
-                <th>Status</th>
             </tr>
         </table>
     </div>
@@ -34,29 +29,26 @@
         let logData = JSON.parse(localStorage.getItem('logData')) || [];
 
         function updateTable() {
-            logTable.innerHTML = '<tr><th>Action</th><th>Time</th><th>Status</th></tr>';
+            logTable.innerHTML = '<tr><th>Action</th><th>Time</th></tr>';
             logData.forEach(entry => {
                 const row = logTable.insertRow();
                 const actionCell = row.insertCell(0);
                 const timeCell = row.insertCell(1);
-                const statusCell = row.insertCell(2);
                 actionCell.innerHTML = entry.action;
                 timeCell.innerHTML = entry.time;
-                statusCell.innerHTML = entry.paid ? '<span class="paid">Paid</span>' : '<span class="not-paid">Not Paid</span>';
             });
         }
 
         document.getElementById('punchInBtn').onclick = function () {
-            const fee = document.getElementById('fee').value;
-            const time = new Date().toISOString();
-            logData.push({ action: 'Punch In', time: time, paid: fee > 0 });
+            const time = new Date().toLocaleString();
+            logData.push({ action: 'Punch In', time: time });
             localStorage.setItem('logData', JSON.stringify(logData));
             updateTable();
         };
 
         document.getElementById('punchOutBtn').onclick = function () {
-            const time = new Date().toISOString();
-            logData.push({ action: 'Punch Out', time: time, paid: false });
+            const time = new Date().toLocaleString();
+            logData.push({ action: 'Punch Out', time: time });
             localStorage.setItem('logData', JSON.stringify(logData));
             updateTable();
         };
